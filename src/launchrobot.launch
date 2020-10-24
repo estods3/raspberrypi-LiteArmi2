@@ -1,0 +1,3 @@
+ <launch>
+    <node pkg="lite_arm_2" name="rb_joint_extension_node" type="rb_joint_extension_node.py" cwd="node" output="screen"></node>
+</launch>

@@ -1,4 +1,12 @@
-import RPi.GPIO
+#!/usr/bin/python2
+import rospy
+import RPi.GPIO as GPIO
+import sys
+from time import sleep
+sys.path.append('../../lib')
+from joint import joint
+
+
 def main():
     GPIO.setmode(GPIO.BCM) # BCM=13 is PWM1 channel on GPIO RPi3
     #         ROBOT DIAGRAM
@@ -9,11 +17,10 @@ def main():
     #           __/      \_
     #          |__|
     #              ^base_motor
-    #
 
     # ROBOT CONFIGURATION
     # -------------------
-    extJoint = joint(frequency=50, pin=13)
+    extJoint = joint(joint_name="rb_joint_extension", frequency=50, pin=13)
     #baseJoint = joint(frequency=50, pin=18)
     #elbowJoint = joint(frequency=50, pin=12)
 
@@ -25,8 +32,8 @@ def main():
     #baseJoint.setMax(15, 45)
     #baseJoint.setHome(0)
 
-    extJoint.setMin(5, 0) # @0 Servo Horn is horizontal (parallel) with ground plane
-    extJoint.setMax(10, 90) # @90 Servo Horn is verticle (perpendicular) with ground plane
+    extJoint.setMin(7.5, 45) # @0 degrees Servo Horn is horizontal (parallel) with ground plane
+    extJoint.setMax(10, 90) # @90 degrees Servo Horn is verticle (perpendicular) with ground plane
     extJoint.setHome(90)
 
     #elbowJoint.setMin(8, 0)
@@ -36,35 +43,16 @@ def main():
     # PROGRAM
     # -------
     extJoint.start() #motor will start in home position
-    #elbowJoint.start() #motor will start in home position
-    #baseJoint.start() #motor will start in home position
-
-#    print("ROTATING to 0 Degrees")
-#    extJoint.rotate(30, 0.2)
-#    max=10
-#    x=0
-#    while(x < max):
-#        sleep(0.05)
-#        x=x+0.05
-    print("ROTATING to 45 Degrees")
     extJoint.rotate(45, 0.2)
 
-    # HOME the Robot
-    # --------------
-    max=10
-    x=0
-    while(x < max):
-        sleep(0.05)
-        x=x+0.05
-    extJoint.home()
-    #elbowJoint.home()
-    #baseJoint.home()
+    # ROS Spin
+    # --------
+    rospy.spin()
 
-    # Stop all Motors
-    # -----------------
+    # HOME AND STOP joint
+    # --------------
+    extJoint.home()
     extJoint.stop()
-    #elbowJoint.stop()
-    #baseJoint.stop()
 
     # Cleanup
     # -------
@@ -72,4 +60,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
