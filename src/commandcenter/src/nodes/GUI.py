@@ -1,96 +1,141 @@
 #!/usr/bin/env python3
 from tkinter import *
 import rospy
-from std_msgs.msg import Float32MultiArray, Int16
+from std_msgs.msg import Float32, Float32MultiArray, Int16
 import sys,tty,termios
 
+extCurrentAngle = 0
+baseCurrentAngle = 0
+wristCurrentAngle = 0
+def RCextCurrentSub(data):
+    global extCurrentAngle
+    extCurrentAngle = data.data
+
+def RCbaseCurrentSub(data):
+    global baseCurrentAngle
+    baseCurrentAngle = data.data
+
+def RCwristCurrentSub(data):
+    global wristCurrentAngle
+    wristCurrentAngle = data.data
+
 RCextpub = rospy.Publisher('cc_rb_joint_extension_set_angle', Float32MultiArray, queue_size=1)
+RCextsub = rospy.Subscriber('rb_joint_extension_current_angle', Float32, RCextCurrentSub, queue_size=1)
+RCbasepub = rospy.Publisher('cc_rb_joint_base_set_angle', Float32MultiArray, queue_size=1)
+RCbasesub = rospy.Subscriber('rb_joint_base_current_angle', Float32, RCbaseCurrentSub, queue_size=1)
+RCwristpub = rospy.Publisher('cc_rb_joint_wrist_set_angle', Float32MultiArray, queue_size=1)
+RCwristsub = rospy.Subscriber('rb_joint_wrist_current_angle', Float32, RCwristCurrentSub, queue_size=1)
+
 modepub = rospy.Publisher('cc_rb_joints_mode', Int16, queue_size=1) # 1 - Program 1, 2 - Program 2, 3 - RC Mode, 4 - Home, 5 - Stop
 RCmode = False
+RCjoint = 1 # 1 - base, 2 - ext, 3 - wrist
 
 def RC_up_handler(event):
+    global RCmode
+    global extCurrentAngle
+    global RCjoint
     r = rospy.Rate(3)
     # Publish Command
-    homepub.publish(0)
     if(RCmode):
-        print("FORWARD")
-        RCextpub.publish()
+        print("%s: Moving 15 degrees in Positive(+) Direction" %(RCjoint))
+        a = Float32MultiArray()
+        a.data = [baseCurrentAngle, 0.2]
+        b = Float32MultiArray()
+        b.data = [extCurrentAngle, 0.2]
+        c = Float32MultiArray()
+        c.data = [wristCurrentAngle, 0.2]
+
+        if(RCjoint==1):
+            a.data = [baseCurrentAngle + 15.0, 0.2]
+        elif(RCjoint==2):
+            b.data = [extCurrentAngle + 15.0, 0.2]
+        else:
+            c.data = [wristCurrentAngle + 15.0, 0.2]
+
+        RCbasepub.publish(a)
+        RCextpub.publish(b)
+        RCwristpub.publish(c)
+
         r.sleep()
 
 def RC_down_handler(event):
+    global RCmode
+    global extCurrentAngle
+    global RCjoint
     r = rospy.Rate(3)
     # Publish Command
-    homepub.publish(0)
     if(RCmode):
-        print("BACKWARD")
-        RCextpub.publish(9)
+        print("%s: Moving 15 degrees in Negative(-) Direction" %(RCjoint))
+        a = Float32MultiArray()
+        a.data = [baseCurrentAngle, 0.2]
+        b = Float32MultiArray()
+        b.data = [extCurrentAngle, 0.2]
+        c = Float32MultiArray()
+        c.data = [wristCurrentAngle, 0.2]
+
+        if(RCjoint==1):
+            a.data = [baseCurrentAngle - 15.0, 0.2]
+        elif(RCjoint==2):
+            b.data = [extCurrentAngle - 15.0, 0.2]
+        else:
+            c.data = [wristCurrentAngle - 15.0, 0.2]
+
+        RCbasepub.publish(a)
+        RCextpub.publish(b)
+        RCwristpub.publish(c)
+
         r.sleep()
 
 def P1CallBack():
-   global RCmode
-   RCmode = False
-   r = rospy.Rate(5)
-   modepub.publish(1)
-   print("--------- Program 1 ----------")
-   r.sleep()
+    global RCmode
+    RCmode = False
+    r = rospy.Rate(5)
+    modepub.publish(1)
+    print("--------- Program 1 ----------")
+    r.sleep()
 
 def P2CallBack():
-   global RCmode
-   RCmode = False
-   r = rospy.Rate(5)
-   print("--------- Program 2  ----------")
-   modepub.publish(2)
-   r.sleep()
+    global RCmode
+    RCmode = False
+    r = rospy.Rate(5)
+    print("--------- Program 2  ----------")
+    modepub.publish(2)
+    r.sleep()
 
 def RCCallBack():
-   r = rospy.Rate(5)
-   global RCmode
-   RCmode = True
-   print("--------- In Remote Control Mode ----------")
-   c = Float32MultiArray()
-   c.data = [90, 0.1]
-   RCextpub.publish(c)
-   modepub.publish(3)
-   r.sleep()
+    r = rospy.Rate(5)
+    global RCmode
+    RCmode = True
+    print("--------- In Remote Control Mode ----------")
+    modepub.publish(3)
+    r.sleep()
 
 def RCBSCallBack():
-   r = rospy.Rate(5)
-   global RCmode
-   RCmode = True
-   print("--------- In Remote Control Mode: BASE ----------")
-   c = Float32MultiArray()
-   c.data = [90, 0.1]
-   RCextpub.publish(c)
-   homepub.publish(0)
-   r.sleep()
+    global RCmode
+    global RCjoint
+    RCmode = True
+    print("--------- In Remote Control Mode: BASE ----------")
+    RCjoint = 1
 
 def RCEXTCallBack():
-   r = rospy.Rate(5)
-   global RCmode
-   RCmode = True
-   print("--------- In Remote Control Mode: EXTENSION ----------")
-   c = Float32MultiArray()
-   c.data = [90, 0.1]
-   RCextpub.publish(c)
-   homepub.publish(0)
-   r.sleep()
+    global RCmode
+    global RCjoint
+    RCmode = True
+    print("--------- In Remote Control Mode: EXTENSION ----------")
+    RCjoint = 2
 
 def RCWRCallBack():
-   r = rospy.Rate(5)
-   global RCmode
-   RCmode = True
-   print("--------- In Remote Control Mode: WRIST ----------")
-   c = Float32MultiArray()
-   c.data = [90, 0.1]
-   RCextpub.publish(c)
-   homepub.publish(0)
-   r.sleep()
+    global RCmode
+    global RCjoint
+    RCmode = True
+    print("--------- In Remote Control Mode: WRIST ----------")
+    RCjoint = 3
 
 def StopCallBack():
    global RCmode
    RCmode = False
    r = rospy.Rate(5)
-   print("---------        STOPPED         ----------")
+   print("--------- STOPPED ----------")
    modepub.publish(5)
    r.sleep()
 
@@ -98,7 +143,7 @@ def HomeCallBack():
    global RCmode
    RCmode = False
    r = rospy.Rate(5)
-   print("---------        HOMING         ----------")
+   print("--------- HOMING ----------")
    modepub.publish(4)
    r.sleep()
 
