@@ -6,7 +6,6 @@ from time import sleep
 sys.path.append('../../lib')
 from joint import joint
 
-
 def main():
     GPIO.setmode(GPIO.BCM) # BCM=13 is PWM1 channel on GPIO RPi3
     #         ROBOT DIAGRAM
@@ -20,21 +19,21 @@ def main():
 
     # ROBOT CONFIGURATION
     # -------------------
-    extJoint = joint(joint_name="rb_joint_extension", frequency=50, pin=13)
+    baseJoint = joint(joint_name="rb_joint_base", frequency=50, pin=18)
 
     # Calibration
     #------------
     # Motors are capable of duty cycle range: (5, 15)
     # However, robotic linkage constraints lower this capability for several of the sensors.
-    extJoint.setMin(7.5, 45) # @0 degrees Servo Horn is horizontal (parallel) with ground plane
-    extJoint.setMax(10, 90) # @90 degrees Servo Horn is verticle (perpendicular) with ground plane
-    extJoint.setHome(90)
+    baseJoint.setMin(5, -45)
+    baseJoint.setMax(15, 45)
+    baseJoint.setHome(0)
 
     # PROGRAM
     # -------
-    extJoint.start() #motor will start in home position
-    #extJoint.rotate(45, 0.2)
-    extJoint.standby()
+    baseJoint.start() #motor will start in home position
+    #baseJoint.rotate(15, 0.2)
+    baseJoint.standby()
 
     # ROS Spin
     # --------
@@ -42,8 +41,8 @@ def main():
 
     # HOME AND STOP joint
     # --------------
-    extJoint.home()
-    extJoint.stop()
+    baseJoint.home()
+    baseJoint.stop()
 
     # Cleanup
     # -------

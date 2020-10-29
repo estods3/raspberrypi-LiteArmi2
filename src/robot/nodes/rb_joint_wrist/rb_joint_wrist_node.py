@@ -20,21 +20,21 @@ def main():
 
     # ROBOT CONFIGURATION
     # -------------------
-    extJoint = joint(joint_name="rb_joint_extension", frequency=50, pin=13)
+    wristJoint = joint(joint_name="rb_joint_wrist", frequency=50, pin=12)
 
     # Calibration
     #------------
     # Motors are capable of duty cycle range: (5, 15)
     # However, robotic linkage constraints lower this capability for several of the sensors.
-    extJoint.setMin(7.5, 45) # @0 degrees Servo Horn is horizontal (parallel) with ground plane
-    extJoint.setMax(10, 90) # @90 degrees Servo Horn is verticle (perpendicular) with ground plane
-    extJoint.setHome(90)
+    wristJoint.setMin(5, 0)
+    wristJoint.setMax(15, 95)
+    wristJoint.setHome(0)
 
     # PROGRAM
     # -------
-    extJoint.start() #motor will start in home position
-    #extJoint.rotate(45, 0.2)
-    extJoint.standby()
+    wristJoint.start() #motor will start in home position
+    #wristJoint.rotate(45, 0.2)
+    wristJoint.standby()
 
     # ROS Spin
     # --------
@@ -42,8 +42,8 @@ def main():
 
     # HOME AND STOP joint
     # --------------
-    extJoint.home()
-    extJoint.stop()
+    wristJoint.home()
+    wristJoint.stop()
 
     # Cleanup
     # -------
