@@ -3,5 +3,5 @@
 
 
 <p align="center">
- <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/rosreplay.gif" alt="video" width="300"/>
+ <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/rosreplay.gif" alt="video" width="600"/>
 </p>
