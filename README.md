@@ -1,5 +1,5 @@
 # 4 DoF Robotic Arm
-3D-printed robotic arm using Raspberry Pi, ROS, and Python. Based on Open Sourced LiteArmi2 Design
+3D-printed robotic arm using Raspberry Pi, ROS, and Python. Based on Open Sourced [LiteArm i2](https://www.thingiverse.com/thing:480446) Design
 
 
 <p align="center">
