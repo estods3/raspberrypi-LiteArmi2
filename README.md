@@ -41,7 +41,9 @@ The circuit serves two main functions: 1) Power the motors and RaspberryPi off o
 
 <div align="center">
 11x1-Pin Male Headers Pinout
+ 
 ---------------------------- 
+
 These headers are used to easily connect servos to board for power and control signal.
  
 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
