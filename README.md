@@ -5,3 +5,10 @@
 <p align="center">
  <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/rosreplay.gif" alt="video" width="600"/>
 </p>
+
+
+## Hardware
+
+[Circuit as a RaspberryPi Shield/Hat](https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/robotarm_circuitboard.jpg)
+
+## Software
