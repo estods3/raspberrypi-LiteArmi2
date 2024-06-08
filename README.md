@@ -26,7 +26,7 @@ The table below contains the parts used to create the circuit. Additionally, red
 |:----:|:----:|:----:|
 | Raspberry Pi | 1 | |
 | Servos | 3 | |
-| Perfboard | 1 | |
+| Perfboard (14x20) | 1 | |
 | 11x1 Pin Male Headers | 1 |
 | 20x2 Pin Female Headers | 1 | |
 | DC barrel jack | 1 | |
