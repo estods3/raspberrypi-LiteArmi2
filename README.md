@@ -42,17 +42,16 @@ The circuit serves two main functions: 1) Power the motors and RaspberryPi off o
 <div align="center">
 11x1-Pin Male Headers Pinout
  
----------------------------- 
-
-These headers are used to easily connect servos to board for power and control signal.
- 
 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 | NC | NC | Ground | 5V | Signal-Wrist | Ground | 5V | Signal-Extension | Ground | 5V | Signal-Base |
 </div>
+These headers are used to easily connect servos to board for power and control signals.
 
 Servo Wrist: Connect to pins 3-5
+
 Servo Extension: Connect to pins 6-8
+
 Servo Base: Connect to pins 9-11
 
 NOTE: Pins 1 and 2 are "Not Connected" and were added for future use to power/control an end effector such as an electromagnet. 
