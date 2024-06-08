@@ -13,11 +13,13 @@
 Based on Open Sourced [LiteArm i2](https://www.thingiverse.com/thing:480446) Design.
 
 ### Electronics
-Circuit buillt as a RaspberryPi Shield/Hat.
+Circuit to power/control the arm was built as a RaspberryPi Shield/Hat to consolidate hardware.
+
 <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/robotarm_circuitboard.jpg" width="600"/>
 
 #### Bill of Materials
-Table below contains the parts used to create the circuit to power/control the arm. Additionally, red (5V), green (ground), and yellow (signals) solid core wire was used.
+The table below contains the parts used to create the circuit. Additionally, red (5V), green (ground), and yellow (signals) solid core wire was used.
+
 | Part | Quantity | Link |
 |:----:|:----:|:----:|
 | Raspberry Pi | 1 | |
