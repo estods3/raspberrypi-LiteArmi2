@@ -20,6 +20,8 @@ Circuit to power/control the arm was built as a RaspberryPi Shield/Hat to consol
 #### Bill of Materials
 The table below contains the parts used to create the circuit. Additionally, red (5V), green (ground), and yellow (signals) solid core wire was used.
 
+<div align="center">
+
 | Part | Quantity | Link |
 |:----:|:----:|:----:|
 | Raspberry Pi | 1 | |
@@ -31,7 +33,8 @@ The table below contains the parts used to create the circuit. Additionally, red
 | Capacitor | 1 | |
 | Power Cable | 1 | |
 | Ethernet Cable | 1 | |
- 
+ </div>
+
 #### Circuit Diagram
 The circuit serves two main functions: 1) Power the motors and RaspberryPi off of a single 5V DC power supply (DC barrel jack + decoupling capacitors) and 2) breakout signals, power, and ground to header pins for the motors.
  
