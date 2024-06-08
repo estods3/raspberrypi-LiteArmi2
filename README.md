@@ -41,25 +41,24 @@ The circuit serves two main functions: 1) Power the motors and RaspberryPi off o
 
 <div align="center">
 11x1-Pin Male Headers Pinout
- 
+---------------------------- 
 These headers are used to easily connect servos to board for power and control signal.
  
 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
 | NC | NC | Ground | 5V | Signal-Wrist | Ground | 5V | Signal-Extension | Ground | 5V | Signal-Base |
+</div>
 
 Servo Wrist: Connect to pins 3-5
 Servo Extension: Connect to pins 6-8
 Servo Base: Connect to pins 9-11
 
 NOTE: Pins 1 and 2 are "Not Connected" and were added for future use to power/control an end effector such as an electromagnet. 
-</div>
 
 
 <div align="center">
 20x2-Pin Female Headers 
- 
-The 20x2-pin femaile headers were placed on the underside of the perfoard to connect directly to the 20x2 set of male Raspberry Pi GPIO Pins.
+-----------------------
  
 | Column 1 | Column 2 |
 |:----:|:----:|
@@ -67,7 +66,7 @@ The 20x2-pin femaile headers were placed on the underside of the perfoard to con
 | | 5V |
 | | |
 | | |
-| | |
+| | Signal-Base (GPIO18) |
 | | |
 | | |
 | | |
@@ -78,18 +77,16 @@ The 20x2-pin femaile headers were placed on the underside of the perfoard to con
 | | |
 | | |
 | | |
-| | Signal-Extension |
-| Signal-Wrist | |
+| | Signal-Extension (GPIO13) |
+| Signal-Wrist (GPIO12) | |
 | | |
 | | |
 | Ground | |
+</div>
 
-Servo Base: 
-Servo Extension: 
-Servo Wrist: 
+The 20x2-pin female headers were placed on the underside of the perfoard to connect directly to the 20x2 set of male Raspberry Pi GPIO Pins.
 
 NOTE: Position decoupling capacitors as close to 5V GPIO pins as possible.
-</div>
 
 
 ## Software
