@@ -11,14 +11,14 @@
 Based on Open Sourced [LiteArm i2](https://www.thingiverse.com/thing:480446) Design.
 
 ### Electronics
-Circuit to power/control the arm was built as a RaspberryPi Shield/Hat to consolidate hardware.
+Controller circuit to power/control the arm was built as a RaspberryPi Shield/Hat to consolidate hardware.
 
 <p align="center">
   <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/robotarm_circuitboard.jpg" width="600"/>
 <p align="center">
 
 #### Bill of Materials
-The table below contains the parts used to create the circuit. Additionally, red (5V), green (ground), and yellow (signals) solid core wire was used to make the connections.
+The table below contains the parts used to create the controller circuit. Additionally, red (5V), green (ground), and yellow (signals) solid core wire was used to make the connections.
 
 <div align="center">
 
@@ -37,7 +37,7 @@ The table below contains the parts used to create the circuit. Additionally, red
  </div>
 
 #### Circuit Diagram
-The circuit serves two main functions: 1) Power the motors and RaspberryPi off of a single 5V DC power supply (DC barrel jack + decoupling capacitors) and 2) breakout signals, power, and ground to header pins for the motors.
+The controller circuit serves two main functions: 1) Power the motors and RaspberryPi off of a single 5V DC power supply (DC barrel jack + decoupling capacitors) and 2) breakout signals, power, and ground to header pins for the motors.
 
 <div align="center">
 11x1-Pin Male Headers Pinout
@@ -54,10 +54,8 @@ These headers are used to easily connect servos to board for power and control s
 
 NOTE: Pins 1 and 2 are "Not Connected" and were added for future use to power/control an end effector such as an electromagnet. 
 
-
 <div align="center">
 20x2-Pin Female Headers 
------------------------
  
 | Column 1 | Column 2 |
 |:----:|:----:|
