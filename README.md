@@ -27,7 +27,8 @@ The table below contains the parts used to create the circuit. Additionally, red
 | Raspberry Pi | 1 | |
 | Servos | 3 | |
 | Perfboard | 1 | |
-| 11 Pin Male Headers | 1 |
+| 11x1 Pin Male Headers | 1 |
+| 20x2 Pin Female Headers | 1 | |
 | DC barrel jack | 1 | |
 | Electrolytic Capacitor | 1 | |
 | Capacitor | 1 | |
@@ -39,23 +40,71 @@ The table below contains the parts used to create the circuit. Additionally, red
 The circuit serves two main functions: 1) Power the motors and RaspberryPi off of a single 5V DC power supply (DC barrel jack + decoupling capacitors) and 2) breakout signals, power, and ground to header pins for the motors.
 
 <div align="center">
-11-Pin Header Pinout
-Headers are used to easily connect servos to board for power and control signal.
+11x1-Pin Male Headers Pinout
+ 
+These headers are used to easily connect servos to board for power and control signal.
  
 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
-| NC | NC | Ground | 5V | Signal1 | Ground | 5V | Signal2 | Ground | 5V | Signal3 |
+| NC | NC | Ground | 5V | Signal-Wrist | Ground | 5V | Signal-Extension | Ground | 5V | Signal-Base |
 
-Servo 1: Connect to pins 3-5
-Servo 2: Connect to pins 6-8
-Servo 3: Connect to pins 9-11
+Servo Wrist: Connect to pins 3-5
+Servo Extension: Connect to pins 6-8
+Servo Base: Connect to pins 9-11
 
 NOTE: Pins 1 and 2 are "Not Connected" and were added for future use to power/control an end effector such as an electromagnet. 
 </div>
+
+
+<div align="center">
+20x2-Pin Female Headers 
  
-NOTE: Position decoupling capacitors as close as possible to 5V GPIO pins as possible
+The 20x2-pin femaile headers were placed on the underside of the perfoard to connect directly to the 20x2 set of male Raspberry Pi GPIO Pins.
+ 
+| Column 1 | Column 2 |
+|:----:|:----:|
+| | 5V | 
+| | 5V |
+| | |
+| | |
+| | |
+| | |
+| | |
+| | |
+| | |
+| | |
+| | |
+| Ground | |
+| | |
+| | |
+| | |
+| | Signal-Extension |
+| Signal-Wrist | |
+| | |
+| | |
+| Ground | |
+
+Servo Base: 
+Servo Extension: 
+Servo Wrist: 
+
+NOTE: Position decoupling capacitors as close to 5V GPIO pins as possible.
+</div>
+
 
 ## Software
+
+#### GPIO Pin Assignment
+The following pin assignment was used for each servo (ensure the appropriate servo is connected to the right location on the 11x1 Male Header Connector.
+
+<div align="center">
+| Servo | GPIO Pin |
+|:----:|:----:|
+| Base | GPIO18 |
+| Extension | GPIO13 |
+| Wrist | GPIO12 |
+</div>
+
 
 ### ROS
 
