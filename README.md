@@ -49,9 +49,7 @@ The circuit serves two main functions: 1) Power the motors and RaspberryPi off o
 These headers are used to easily connect servos to board for power and control signals. Connect the servos as follows:
 
 * Servo Wrist: Connect to pins 3-5
-* 
 * Servo Extension: Connect to pins 6-8
-* 
 * Servo Base: Connect to pins 9-11
 
 NOTE: Pins 1 and 2 are "Not Connected" and were added for future use to power/control an end effector such as an electromagnet. 
