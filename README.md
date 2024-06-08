@@ -8,7 +8,7 @@
 
 
 ## Hardware
-
-[Circuit as a RaspberryPi Shield/Hat](https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/robotarm_circuitboard.jpg)
+<img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/robotarm_circuitboard.jpg" width="600"/>
+Circuit as a RaspberryPi Shield/Hat
 
 ## Software
