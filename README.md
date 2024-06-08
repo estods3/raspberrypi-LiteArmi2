@@ -92,11 +92,13 @@ NOTE: Position decoupling capacitors as close to 5V GPIO pins as possible.
 The following pin assignment was used for each servo (ensure the appropriate servo is connected to the right location on the 11x1 Male Header Connector.
 
 <div align="center">
+ 
 | Servo | GPIO Pin |
 |:----:|:----:|
 | Base | GPIO18 |
 | Extension | GPIO13 |
 | Wrist | GPIO12 |
+
 </div>
 
 
