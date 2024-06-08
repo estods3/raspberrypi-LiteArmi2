@@ -18,7 +18,7 @@ Circuit to power/control the arm was built as a RaspberryPi Shield/Hat to consol
 <p align="center">
 
 #### Bill of Materials
-The table below contains the parts used to create the circuit. Additionally, red (5V), green (ground), and yellow (signals) solid core wire was used.
+The table below contains the parts used to create the circuit. Additionally, red (5V), green (ground), and yellow (signals) solid core wire was used to make the connections.
 
 <div align="center">
 
