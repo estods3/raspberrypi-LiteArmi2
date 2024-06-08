@@ -59,26 +59,26 @@ NOTE: Pins 1 and 2 are "Not Connected" and were added for future use to power/co
  
 | Column 1 | Column 2 |
 |:----:|:----:|
-| | 5V | 
-| | 5V |
-| | |
-| | |
-| | Signal-Base (GPIO18) |
-| | |
-| | |
-| | |
-| | |
-| | |
-| | |
-| Ground | |
-| | |
-| | |
-| | |
-| | Signal-Extension (GPIO13) |
-| Signal-Wrist (GPIO12) | |
-| | |
-| | |
-| Ground | |
+| NC | 5V | 
+| NC | 5V |
+| NC | NC |
+| NC | NC |
+| NC | Signal-Base (GPIO18) |
+| NC | NC |
+| NC | NC |
+| NC | NC |
+| NC | NC |
+| NC | NC |
+| NC | NC |
+| Ground | NC |
+| NC | NC |
+| NC | NC |
+| NC | NC |
+| NC | Signal-Extension (GPIO13) |
+| Signal-Wrist (GPIO12) | NC |
+| NC | NC |
+| NC | NC |
+| Ground | NC |
 </div>
 
 The 20x2-pin female headers were placed on the underside of the perfoard to connect directly to the 20x2 set of male Raspberry Pi GPIO Pins.
