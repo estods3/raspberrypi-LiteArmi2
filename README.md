@@ -32,6 +32,8 @@ The table below contains the parts used to create the controller circuit. Additi
 | DC barrel jack | 1 | |
 | Electrolytic Capacitor | 1 | |
 | Capacitor | 1 | |
+| Red LED | 1 | |
+| 91ohm resistor | 1 | |
 | Power Cable | 1 | |
 | Ethernet Cable | 1 | |
  </div>
