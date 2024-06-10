@@ -95,11 +95,12 @@ The following pin assignment was used for each servo (ensure the appropriate ser
 
 <div align="center">
  
-| Servo | GPIO Pin |
+| Device | GPIO Pin |
 |:----:|:----:|
 | Base | GPIO18 |
 | Extension | GPIO13 |
 | Wrist | GPIO12 |
+| LED | GPIO26 |
 
 </div>
 
