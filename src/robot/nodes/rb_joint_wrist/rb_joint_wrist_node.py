@@ -8,7 +8,7 @@ from joint import joint
 
 
 def main():
-    GPIO.setmode(GPIO.BCM) # BCM=13 is PWM1 channel on GPIO RPi3
+    #GPIO.setmode(GPIO.BCM) # BCM=13 is PWM1 channel on GPIO RPi3
     #         ROBOT DIAGRAM
     #
     #   ext_motor    /\
@@ -26,8 +26,8 @@ def main():
     #------------
     # Motors are capable of duty cycle range: (5, 15)
     # However, robotic linkage constraints lower this capability for several of the sensors.
-    wristJoint.setMin(5, 0)
-    wristJoint.setMax(15, 95)
+    wristJoint.setMin(1000, 0)
+    wristJoint.setMax(2000, 95)
     wristJoint.setHome(0)
 
     # PROGRAM
@@ -47,7 +47,7 @@ def main():
 
     # Cleanup
     # -------
-    GPIO.cleanup()
+    #GPIO.cleanup()
 
 if __name__ == '__main__':
     main()

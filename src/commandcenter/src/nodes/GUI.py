@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.8
 from tkinter import *
 import rospy
 from std_msgs.msg import Float32, Float32MultiArray, Int16

@@ -1,9 +1,16 @@
 import rospy
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 from time import sleep
 from std_msgs.msg import Float32MultiArray
 from std_msgs.msg import Float32, Int16, String
 from datetime import datetime
+import sys
+import time
+import random
+import pigpio
+
+MIN_WIDTH=1000
+MAX_WIDTH=2000
 
 class joint:
     def __init__(self, joint_name, frequency, pin):
@@ -22,10 +29,16 @@ class joint:
         self.modesub = rospy.Subscriber("cc_rb_joints_mode", Int16, self.setMode, queue_size=1) # 1 - Program 1, 2 - Program 2, 3 - RC Mode, 4 - Home, 5 - Stop
         self.r = rospy.Rate(5)
 
+
+        self.pi = pigpio.pi()
+        if not self.pi.connected:
+            print("Error: Not connected to pigpio lib")
+            exit()
+
         # I/O
         self.pwmPin = pin
-        GPIO.setup(self.pwmPin, GPIO.OUT)
-        self.motor=GPIO.PWM(self.pwmPin, frequency) # communicated with motor (50Hz)
+        #GPIO.setup(self.pwmPin, GPIO.OUT)
+        #self.motor = #GPIO.PWM(self.pwmPin, frequency) # communicated with motor (50Hz)
 
         # "expects a pulse between 1 and 2 ms.
         # in other words, between a 5 and 10% duty cycle on a 50Hz waveform."
@@ -44,7 +57,7 @@ class joint:
             self.currentpospub.publish(c)
             now = datetime.now()
             current_time = now.strftime("%S")
-            print("JOINT %s: @%ss Current Position is %s degrees" %(self.name, current_time, self.getCurrent("Angle")))
+            #print("JOINT %s: @%ss Current Position is %s degrees" %(self.name, current_time, self.getCurrent("Angle")))
             self.r.sleep()
 
     def setMode(self, data):
@@ -59,7 +72,7 @@ class joint:
             sleep(1.5)
         if(self.name == "rb_joint_base"):
             sleep(3)
-        self.motor.start(self.getHome("DC"))
+        self.pi.set_servo_pulsewidth(self.pwmPin, self.getHome("DC"))
         self.currentPos = self.homePos
         c = Float32(self.getCurrent("Angle"))
         self.currentpospub.publish(c)
@@ -97,8 +110,11 @@ class joint:
 
     def stop(self):
         print("JOINT %s: Stopping Motor" %(self.name))
-        self.motor.stop()
+        #self.motor.stop()
+        self.pi.set_servo_pulsewidth(self.pwmPin, 0)
         print("JOINT %s: Motor Stopped" %(self.name))
+        self.pi.stop()
+
 
     def getDCfromAngle(self, angle):
         if(angle > self.getMax("Angle")):
@@ -124,18 +140,15 @@ class joint:
         print("JOINT %s: Starting Rotation to %s degrees from %s degrees" %(self.name, endPosAngle, self.getCurrent("Angle")))
         endPos = self.getDCfromAngle(endPosAngle)
         nextPos = self.getCurrent("DC")
-        increment=1
-        while(abs(nextPos - endPos) >= 0.5):
-            if(abs(nextPos - endPos) <= 3):
-                increment = 0.5
+        increment=10
+        while(abs(nextPos - endPos) >= 3):
+            if(abs(nextPos - endPos) <= 20):
+                increment = 3
             if(nextPos < endPos):
                 nextPos = nextPos + increment
-                #print("rotating + direction")
             else:
                 nextPos = nextPos - increment
-                #print("rotating - direction")
-            #print("current=%s, end=%s" %(nextPos, endPos))
-            self.motor.ChangeDutyCycle(int(nextPos))
+            self.pi.set_servo_pulsewidth(self.pwmPin, int(nextPos))
             sleep(speedDelayTime)
             self.currentPos = (nextPos, endPosAngle)
             c = Float32(self.getCurrent("Angle"))
