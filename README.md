@@ -79,7 +79,7 @@ NOTE: Pins 1 and 2 are "Not Connected" and were added for future use to power/co
 | NC | Signal-Extension (GPIO13) |
 | Signal-Wrist (GPIO12) | NC |
 | NC | NC |
-| NC | NC |
+| Signal-LED | NC |
 | Ground | NC |
 </div>
 
@@ -106,6 +106,10 @@ The following pin assignment was used for each servo (ensure the appropriate ser
 
 
 ### ROS
+This Robotic Arm uses Robotic Operating System (ROS) to transmit commands to the robot and also recieve live feedback on robot status and position.
+<p align="center">
+ <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/rviz_interface.png" alt="video" width="600"/>
+</p>
 
 ### Kinematics
 https://github.com/AliShug/EvoArm
