@@ -108,7 +108,7 @@ The following pin assignment was used for each servo (ensure the appropriate ser
 ### ROS
 This Robotic Arm uses Robotic Operating System (ROS) to transmit commands to the robot and also recieve live feedback on robot status and position.
 <p align="center">
- <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/rviz_interface.png" alt="video" width="600"/>
+ <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/rviz_interface.png" alt="video" width="800"/>
 </p>
 
 ### Kinematics
