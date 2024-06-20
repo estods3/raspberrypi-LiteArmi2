@@ -80,16 +80,16 @@ def main():
                      tf.transformations.quaternion_from_euler(0, initial_offset, 0),
                      rospy.Time.now(), 'Base', "Shoulder")
         br_extension2.sendTransform((5, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, extension_control_angle, 0),
+                     tf.transformations.quaternion_from_euler(0, math.radians(60) - extension_control_angle, 0),
                      rospy.Time.now(), 'Shoulder', "Elbow")
 
         initial_offset = math.radians(90)
         br_wrist.sendTransform((5, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, wrist_control_angle, 0),
+                     tf.transformations.quaternion_from_euler(0, wrist_control_angle - 3.14, 0),
                      rospy.Time.now(), 'Elbow', "Wrist")
         initial_offset = math.radians(-120)
         br_endeffector.sendTransform((0.5, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, initial_offset + wrist_control_angle, 0), rospy.Time.now(), 'Wrist', "End Effector")
+                     tf.transformations.quaternion_from_euler(0, 3.14/2 - wrist_control_angle, 0), rospy.Time.now(), 'Wrist', "End Effector")
 
     # Cleanup
     # -------

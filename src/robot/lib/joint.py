@@ -79,10 +79,18 @@ class joint:
         print("JOINT %s: Started at Home (%s, %s)" %(self.name, self.currentPos[0], self.currentPos[1]))
 
     def setMin(self, dc, angle):
-        self.minPos = (dc, angle)
+        if(dc > MIN_WIDTH):
+            self.minPos = (dc, angle)
+        else:
+            print("WARNING: Duty Cycle must be greater than " + str(MIN_WIDTH) + "! Setting to MIN_WIDTH.")
+            self.minPos = (MIN_WIDTH, angle)
 
     def setMax(self, dc, angle):
-        self.maxPos = (dc, angle)
+        if(dc < MAX_WIDTH):
+            self.maxPos = (dc, angle)
+        else:
+            print("WARNING: Duty Cycle must be less than " + str(MAX_WIDTH) + "! Setting to MAX_WIDTH.")
+            self.maxPos = (MAX_WIDTH, angle)
 
     def setHome(self, angle):
         self.homePos = (self.getDCfromAngle(angle), angle)
@@ -105,16 +113,20 @@ class joint:
         if(self.name == "rb_joint_base"):
             sleep(3)
         print("JOINT %s: Homing" %(self.name))
-        self.rotate(self.getHome("Angle"), 0.3)
+        self.rotate(self.getHome("Angle"), 0.03)
         print("JOINT %s: Homing Done" %(self.name))
 
     def stop(self):
         print("JOINT %s: Stopping Motor" %(self.name))
-        #self.motor.stop()
         self.pi.set_servo_pulsewidth(self.pwmPin, 0)
         print("JOINT %s: Motor Stopped" %(self.name))
         self.pi.stop()
 
+    def scale(self, a_value, a_max, a_min, b_max, b_min):
+        a_range = a_max - a_min
+        b_range = b_max - b_min
+        b_value = ((a_value - a_min) * b_range / a_range) + b_min
+        return b_value
 
     def getDCfromAngle(self, angle):
         if(angle > self.getMax("Angle")):
@@ -123,8 +135,18 @@ class joint:
         if(angle < self.getMin("Angle")):
             print("JOINT %s: Warning - Angle (%s) is less than min (%s). Setting angle to min." %(self.name, angle, self.getMin("Angle")))
             angle = self.getMin("Angle")
-        dc = ((self.getMax("DC") - self.getMin("DC")) * (angle - self.getMin("Angle")))/float(self.getMax("Angle") - self.getMin("Angle")) + self.getMin("DC")
+        dc = self.scale(angle, self.getMax("Angle"), self.getMin("Angle"), self.getMax("DC"), self.getMin("DC"))
         return dc
+
+    def getAnglefromDC(self, dc):
+        if(dc > self.getMax("DC")):
+            print("JOINT %s: Warning - DC (%s) is greater than max (%s). Setting DC to max." %(self.name, dc, self.getMax("DC")))
+            dc = self.getMax("DC")
+        if(dc < self.getMin("DC")):
+            print("JOINT %s: Warning - DC (%s) is less than min (%s). Setting DC to min." %(self.name, dc, self.getMin("DC")))
+            dc = self.getMin("DC")
+        angle = self.scale(dc, self.getMax("DC"), self.getMin("DC"), self.getMax("Angle"), self.getMin("Angle"))
+        return angle
 
     def rotateROS(self, data):
         args = data.data
@@ -150,7 +172,8 @@ class joint:
                 nextPos = nextPos - increment
             self.pi.set_servo_pulsewidth(self.pwmPin, int(nextPos))
             sleep(speedDelayTime)
-            self.currentPos = (nextPos, endPosAngle)
+            current_angle = self.getAnglefromDC(int(nextPos))
+            self.currentPos = (nextPos, current_angle)
             c = Float32(self.getCurrent("Angle"))
             self.currentpospub.publish(c)
         print("JOINT %s: Rotation Complete" %(self.name))

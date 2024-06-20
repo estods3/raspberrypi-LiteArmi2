@@ -26,9 +26,9 @@ def main():
     #------------
     # Motors are capable of duty cycle range: (5, 15)
     # However, robotic linkage constraints lower this capability for several of the sensors.
-    wristJoint.setMin(1000, 0)
-    wristJoint.setMax(2000, 95)
-    wristJoint.setHome(0)
+    wristJoint.setMin(1000, -120)
+    wristJoint.setMax(1500, -5)
+    wristJoint.setHome(-50)
 
     # PROGRAM
     # -------

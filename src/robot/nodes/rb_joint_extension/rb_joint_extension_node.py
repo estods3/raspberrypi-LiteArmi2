@@ -26,9 +26,9 @@ def main():
     #------------
     # Motors are capable of duty cycle range: (5, 15)
     # However, robotic linkage constraints lower this capability for several of the sensors.
-    extJoint.setMin(1250, 45) #7.5 # @0 degrees Servo Horn is horizontal (parallel) with ground plane
-    extJoint.setMax(1750, 90) #10 # @90 degrees Servo Horn is verticle (perpendicular) with ground plane
-    extJoint.setHome(90)
+    extJoint.setMin(1333, 30) # @30 degrees Servo Horn is about 30 degress above horizontal (parallel) with ground plane
+    extJoint.setMax(2000, 85) # @90 degrees Servo Horn is verticle (perpendicular) with ground plane
+    extJoint.setHome(85)
 
     # PROGRAM
     # -------
