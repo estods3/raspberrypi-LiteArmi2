@@ -2,7 +2,7 @@
 3D-printed robotic arm using Raspberry Pi, ROS, and Python. Based on Open Sourced [LiteArm i2](https://www.thingiverse.com/thing:480446) Design.
 
 <p align="center">
- <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/rosreplay.gif" alt="video" width="120"/> <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/rvizreplay.gif" alt="video" width="400"/>
+ <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/rosreplay.gif" alt="video" width="155"/> <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/rvizreplay.gif" alt="video" width="450"/>
 </p>
 
 ## Hardware
