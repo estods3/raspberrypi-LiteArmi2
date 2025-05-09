@@ -16,7 +16,7 @@ Based on Open Sourced [LiteArm i2](https://www.thingiverse.com/thing:480446) Des
 Controller circuit to power/control the arm was built as a RaspberryPi Shield/Hat to consolidate hardware.
 
 <p align="center">
-  <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/robotarm_circuitboard.jpg" width="600"/>
+  <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/robotarm_circuitboard.jpg" width="600"/>
 <p align="center">
 
 #### Bill of Materials
