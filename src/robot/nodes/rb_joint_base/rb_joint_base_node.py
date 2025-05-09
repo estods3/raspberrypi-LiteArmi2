@@ -7,7 +7,7 @@ sys.path.append('../../lib')
 from joint import joint
 
 def main():
-    GPIO.setmode(GPIO.BCM) # BCM=13 is PWM1 channel on GPIO RPi3
+    #GPIO.setmode(GPIO.BCM) # BCM=13 is PWM1 channel on GPIO RPi3
     #         ROBOT DIAGRAM
     #
     #   ext_motor    /\
@@ -25,8 +25,8 @@ def main():
     #------------
     # Motors are capable of duty cycle range: (5, 15)
     # However, robotic linkage constraints lower this capability for several of the sensors.
-    baseJoint.setMin(5, -45)
-    baseJoint.setMax(15, 45)
+    baseJoint.setMin(1000, -45)
+    baseJoint.setMax(2000, 45)
     baseJoint.setHome(0)
 
     # PROGRAM
@@ -46,7 +46,7 @@ def main():
 
     # Cleanup
     # -------
-    GPIO.cleanup()
+    #GPIO.cleanup()
 
 if __name__ == '__main__':
     main()

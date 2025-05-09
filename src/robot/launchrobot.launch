@@ -2,4 +2,5 @@
     <node pkg="lite_arm_2" name="rb_joint_base_node" type="rb_joint_base_node.py" cwd="node" output="screen"></node>
     <node pkg="lite_arm_2" name="rb_joint_extension_node" type="rb_joint_extension_node.py" cwd="node" output="screen"></node>
     <node pkg="lite_arm_2" name="rb_joint_wrist_node" type="rb_joint_wrist_node.py" cwd="node" output="screen"></node>
+    <node pkg="lite_arm_2" name="rb_main_node" type="rb_led_heartbeat_node.py" cwd="node" output="screen"></node>
 </launch>

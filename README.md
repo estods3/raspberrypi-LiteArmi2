@@ -6,9 +6,11 @@
 </p>
 
 ## Hardware
+The hardware for this robot consists of a 3D printed frame as well as a RaspberryPi with a custom "hat".
+The link to the frame design as well as details on the circuitry and bill of materials are below.
 
 ### Frame
-Based on Open Sourced [LiteArm i2](https://www.thingiverse.com/thing:480446) Design.
+Based on Open Sourced [LiteArm i2](https://www.thingiverse.com/thing:480446) Design. 3D printed.
 
 ### Electronics
 Controller circuit to power/control the arm was built as a RaspberryPi Shield/Hat to consolidate hardware.
@@ -79,7 +81,7 @@ NOTE: Pins 1 and 2 are "Not Connected" and were added for future use to power/co
 | NC | Signal-Extension (GPIO13) |
 | Signal-Wrist (GPIO12) | NC |
 | NC | NC |
-| NC | NC |
+| Signal-LED | NC |
 | Ground | NC |
 </div>
 
@@ -89,6 +91,7 @@ NOTE: Position decoupling capacitors as close to 5V GPIO pins as possible.
 
 
 ## Software
+The software for this robot was written in python for both the PC "command center" and the robot itself. All code is included in this single repository.
 
 #### GPIO Pin Assignment
 The following pin assignment was used for each servo (ensure the appropriate servo is connected to the right location on the 11x1 Male Header Connector.
@@ -106,8 +109,10 @@ The following pin assignment was used for each servo (ensure the appropriate ser
 
 
 ### ROS
+This Robotic Arm uses Robotic Operating System (ROS) to transmit commands to the robot and also recieve live feedback on robot status and position.
+<p align="center">
+ <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/rviz_interface.png" alt="video" width="800"/>
+</p>
 
-### Kinematics
+### Resources
 https://github.com/AliShug/EvoArm
-
-### Mode 1: Remote Control and Playback

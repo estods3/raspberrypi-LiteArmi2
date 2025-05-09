@@ -8,7 +8,7 @@ from joint import joint
 
 
 def main():
-    GPIO.setmode(GPIO.BCM) # BCM=13 is PWM1 channel on GPIO RPi3
+    #GPIO.setmode(GPIO.BCM) # BCM=13 is PWM1 channel on GPIO RPi3
     #         ROBOT DIAGRAM
     #
     #   ext_motor    /\
@@ -26,9 +26,9 @@ def main():
     #------------
     # Motors are capable of duty cycle range: (5, 15)
     # However, robotic linkage constraints lower this capability for several of the sensors.
-    extJoint.setMin(7.5, 45) # @0 degrees Servo Horn is horizontal (parallel) with ground plane
-    extJoint.setMax(10, 90) # @90 degrees Servo Horn is verticle (perpendicular) with ground plane
-    extJoint.setHome(90)
+    extJoint.setMin(1333, 30) # @30 degrees Servo Horn is about 30 degress above horizontal (parallel) with ground plane
+    extJoint.setMax(2000, 85) # @90 degrees Servo Horn is verticle (perpendicular) with ground plane
+    extJoint.setHome(85)
 
     # PROGRAM
     # -------
@@ -47,7 +47,7 @@ def main():
 
     # Cleanup
     # -------
-    GPIO.cleanup()
+    #GPIO.cleanup()
 
 if __name__ == '__main__':
     main()

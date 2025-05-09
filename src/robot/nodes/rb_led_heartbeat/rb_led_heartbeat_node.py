@@ -9,7 +9,7 @@ from std_msgs.msg import Float32, Float32MultiArray, Int16, Bool
 
 extCurrentAngle = 10
 baseCurrentAngle = 0
-wristCurrentAngle = 0
+wristCurrentAngle = 75
 def RCextCurrentSub(data):
     global extCurrentAngle
     extCurrentAngle = data.data
@@ -78,18 +78,18 @@ def main():
         initial_offset = math.radians(-45)
         br_extension.sendTransform((0.75, 0, -0.5),
                      tf.transformations.quaternion_from_euler(0, initial_offset, 0),
-                     rospy.Time.now(), 'Base', "Extension1")
+                     rospy.Time.now(), 'Base', "Shoulder")
         br_extension2.sendTransform((5, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, extension_control_angle, 0),
-                     rospy.Time.now(), 'Extension1', "Extension2")
+                     tf.transformations.quaternion_from_euler(0, math.radians(60) - extension_control_angle, 0),
+                     rospy.Time.now(), 'Shoulder', "Elbow")
 
         initial_offset = math.radians(90)
         br_wrist.sendTransform((5, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, initial_offset - extension_control_angle, 0),
-                     rospy.Time.now(), 'Extension2', "Wrist")
-        initial_offset = -3.14/3
+                     tf.transformations.quaternion_from_euler(0, wrist_control_angle - 3.14, 0),
+                     rospy.Time.now(), 'Elbow', "Wrist")
+        initial_offset = math.radians(-120)
         br_endeffector.sendTransform((0.5, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, initial_offset + wrist_control_angle, 0), rospy.Time.now(), 'Wrist', "End Effector")
+                     tf.transformations.quaternion_from_euler(0, 3.14/2 - wrist_control_angle, 0), rospy.Time.now(), 'Wrist', "End Effector")
 
     # Cleanup
     # -------
