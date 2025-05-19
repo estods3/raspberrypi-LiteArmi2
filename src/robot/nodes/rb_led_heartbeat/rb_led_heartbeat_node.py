@@ -71,12 +71,12 @@ def main():
                      tf.transformations.quaternion_from_euler(0, 0, 0),
                      rospy.Time.now(), 'Fixed Frame', "World")
 
-        br_base.sendTransform((0, 0, -1),
+        br_base.sendTransform((0, 0, 0),
                      tf.transformations.quaternion_from_euler(0, 0, base_control_angle),
                      rospy.Time.now(), 'World', "Base")
 
-        initial_offset = math.radians(-45)
-        br_extension.sendTransform((0.75/100, 0, -0.5/100),
+        initial_offset = math.radians(45)
+        br_extension.sendTransform((0/100, 0, -9.5/100),
                      tf.transformations.quaternion_from_euler(0, initial_offset, 0),
                      rospy.Time.now(), 'Base', "Shoulder")
         br_extension2.sendTransform((16.0/100, 0, 0),
