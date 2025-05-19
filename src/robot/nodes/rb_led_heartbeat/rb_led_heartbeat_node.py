@@ -41,8 +41,12 @@ def main():
     # TF
     br_world = tf.TransformBroadcaster()
     br_base = tf.TransformBroadcaster()
-    br_extension = tf.TransformBroadcaster()
-    br_extension2 = tf.TransformBroadcaster()
+    br_body = tf.TransformBroadcaster()
+    br_rotator = tf.TransformBroadcaster()
+    br_shoulder = tf.TransformBroadcaster()
+    br_upperarm = tf.TransformBroadcaster()
+    br_elbow = tf.TransformBroadcaster()
+    br_forearm = tf.TransformBroadcaster()
     br_wrist = tf.TransformBroadcaster()
     br_endeffector = tf.TransformBroadcaster()
     rate = rospy.Rate(5) # 5hz
@@ -63,33 +67,77 @@ def main():
         global wristCurrentAngle
         global baseCurrentAngle
         global extCurrentAngle
-        base_control_angle = math.radians(baseCurrentAngle)
-        extension_control_angle = math.radians(extCurrentAngle)
-        wrist_control_angle = math.radians(wristCurrentAngle)
+        rotator_control_angle = math.radians(baseCurrentAngle)
+        shoulder_control_angle = math.radians(extCurrentAngle)
+        elbow_control_angle = math.radians(wristCurrentAngle)
+        wrist_control_angle = 3.14/2 - elbow_control_angle
 
+        # Fixed Frame to World Definition
         br_world.sendTransform((0, 0, 0),
                      tf.transformations.quaternion_from_euler(0, 0, 0),
                      rospy.Time.now(), 'Fixed Frame', "World")
 
+        #br_base.sendTransform((0, 0, 0),
+        #             tf.transformations.quaternion_from_euler(0, 0, base_control_angle),
+        #             rospy.Time.now(), 'World', "Base")
+
+        #initial_offset = math.radians(45)
+        #br_extension.sendTransform((0/100, 0, -9.5/100),
+        #             tf.transformations.quaternion_from_euler(0, initial_offset, 0),
+        #             rospy.Time.now(), 'Base', "Shoulder")
+        #br_extension2.sendTransform((16.0/100, 0, 0),
+        #             tf.transformations.quaternion_from_euler(0, math.radians(60) - extension_control_angle, 0),
+        #             rospy.Time.now(), 'Shoulder', "Elbow")
+
+        #initial_offset = math.radians(90)
+        #br_wrist.sendTransform((17.0/100, 0, 0),
+        #             tf.transformations.quaternion_from_euler(0, wrist_control_angle - 3.14, 0),
+        #             rospy.Time.now(), 'Elbow', "Wrist")
+        #initial_offset = math.radians(-120)
+
+        # Link: Base (Fixed to World)
         br_base.sendTransform((0, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, 0, base_control_angle),
+                     tf.transformations.quaternion_from_euler(0, 0, 0),
                      rospy.Time.now(), 'World', "Base")
 
-        initial_offset = math.radians(45)
-        br_extension.sendTransform((0/100, 0, -9.5/100),
-                     tf.transformations.quaternion_from_euler(0, initial_offset, 0),
-                     rospy.Time.now(), 'Base', "Shoulder")
-        br_extension2.sendTransform((16.0/100, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, math.radians(60) - extension_control_angle, 0),
-                     rospy.Time.now(), 'Shoulder', "Elbow")
+        # Joint: Rotator (Yaw)
+        br_rotator.sendTransform((0, 0, 0),
+                     tf.transformations.quaternion_from_euler(0, 0, rotator_control_angle),
+                     rospy.Time.now(), 'Base', "Rotator")
 
-        initial_offset = math.radians(90)
-        br_wrist.sendTransform((17.0/100, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, wrist_control_angle - 3.14, 0),
-                     rospy.Time.now(), 'Elbow', "Wrist")
-        initial_offset = math.radians(-120)
+        # Link: Body
+        br_body.sendTransform((0, 0, -9.5),
+                     tf.transformations.quaternion_from_euler(0, 0, 0),
+                     rospy.Time.now(), 'Rotator', "Body")
+
+        # Joint: Shoulder (Pitch)
+        br_shoulder.sendTransform((0, 0, 0),
+                     tf.transformations.quaternion_from_euler(0, math.radians(60) - shoulder_control_angle, 0),
+                     rospy.Time.now(), 'Body', "Shoulder")
+
+        # Link: Upper Arm
+        br_upperarm.sendTransform((16.0/100, 0, 0),
+                     tf.transformations.quaternion_from_euler(0, 0, 0),
+                     rospy.Time.now(), 'Shoulder', "Upper Arm")
+
+        # Joint: Elbow
+        br_elbow.sendTransform((0, 0, 0),
+                     tf.transformations.quaternion_from_euler(0, elbow_control_angle - 3.14, 0),
+                     rospy.Time.now(), 'Upper Arm', "Elbow")
+
+        # Link: Fore Arm
+        br_forearm.sendTransform((17.0/100, 0, 0),
+                     tf.transformations.quaternion_from_euler(0, 0, 0),
+                     rospy.Time.now(), 'Elbow', "Fore Arm")
+        
+        # Joint: Wrist
+        br_wrist.sendTransform((0, 0, 0),
+                     tf.transformations.quaternion_from_euler(0, wrist_control_angle, 0),
+                     rospy.Time.now(), "Fore Arm", "Wrist")
+
+        # Link: End Effector
         br_endeffector.sendTransform((5.0/100, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, 3.14/2 - wrist_control_angle, 0), rospy.Time.now(), 'Wrist', "End Effector")
+                     tf.transformations.quaternion_from_euler(0, 0, 0), rospy.Time.now(), 'Wrist', "End Effector")
 
     # Cleanup
     # -------
