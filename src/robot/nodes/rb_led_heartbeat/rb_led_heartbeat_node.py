@@ -78,7 +78,7 @@ def main():
                      rospy.Time.now(), 'Fixed Frame', "World")
 
         # Link: Base (Fixed to World)
-        br_base.sendTransform((0, 0, 0),
+        br_base.sendTransform((0, 0, -1/100),
                      tf.transformations.quaternion_from_euler(0, 0, 0),
                      rospy.Time.now(), 'World', "Base")
 
@@ -88,12 +88,12 @@ def main():
                      rospy.Time.now(), 'Base', "Rotator")
 
         # Link: Body
-        br_body.sendTransform((0, 0, -9.5),
+        br_body.sendTransform((0, 0, 0),
                      tf.transformations.quaternion_from_euler(0, 0, 0),
                      rospy.Time.now(), 'Rotator', "Body")
 
         # Joint: Shoulder (Pitch)
-        br_shoulder.sendTransform((0, 0, 0),
+        br_shoulder.sendTransform((0, 0, -8.5/100),
                      tf.transformations.quaternion_from_euler(0, math.radians(60) - shoulder_control_angle, 0),
                      rospy.Time.now(), 'Body', "Shoulder")
 
