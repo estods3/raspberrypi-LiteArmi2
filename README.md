@@ -1,8 +1,8 @@
-# 4 DoF Robotic Arm
+# 3 DoF Robotic Arm
 3D-printed robotic arm using Raspberry Pi, ROS, and Python. Based on Open Sourced [LiteArm i2](https://www.thingiverse.com/thing:480446) Design.
 
 <p align="center">
- <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/rosreplay.gif" alt="video" width="600"/>
+ <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/rosreplay.gif" alt="video" width="155"/> <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/rvizreplay.gif" alt="video" width="500"/>
 </p>
 
 ## Hardware
@@ -16,7 +16,7 @@ Based on Open Sourced [LiteArm i2](https://www.thingiverse.com/thing:480446) Des
 Controller circuit to power/control the arm was built as a RaspberryPi Shield/Hat to consolidate hardware.
 
 <p align="center">
-  <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/robotarm_circuitboard.jpg" width="600"/>
+  <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/robotarm_circuitboard.jpg" width="600"/>
 <p align="center">
 
 #### Bill of Materials
@@ -111,7 +111,7 @@ The following pin assignment was used for each servo (ensure the appropriate ser
 ### ROS
 This Robotic Arm uses Robotic Operating System (ROS) to transmit commands to the robot and also recieve live feedback on robot status and position.
 <p align="center">
- <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/rviz_interface.png" alt="video" width="800"/>
+ <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/rviz_interface.png" alt="video" width="800"/>
 </p>
 
 ### Resources
