@@ -7,7 +7,7 @@
   </material>
 
   <!-- Base Link -->
-  <link name="base_link">
+  <link name="Base">
     <visual>
       <geometry>
         <box size="0.10 0.10 0.01"/>
@@ -26,7 +26,7 @@
   </link>
 
   <!-- First Link (Cylinder) -->
-  <link name="link1">
+  <link name="Body">
     <visual>
       <geometry>
         <cylinder radius="0.0325" length="0.085"/>
@@ -48,16 +48,16 @@
   </link>
 
   <!-- First Joint (Yaw) -->
-  <joint name="base_to_link1" type="revolute">
-    <parent link="base_link"/>
-    <child link="link1"/>
+  <joint name="Rotator" type="revolute">
+    <parent link="Base"/>
+    <child link="Body"/>
     <origin xyz="0 0 0.005" rpy="0 0 0"/>
     <axis xyz="0 0 1"/>
     <limit lower="-3.14" upper="3.14" effort="100" velocity="1.0"/>
   </joint>
 
   <!-- Second Link -->
-  <link name="link2">
+  <link name="UpperArm">
     <visual>
       <geometry>
         <box size="0.16 0.02 0.02"/>
@@ -79,16 +79,16 @@
   </link>
 
   <!-- Second Joint (Pitch) -->
-  <joint name="link1_to_link2" type="revolute">
-    <parent link="link1"/>
-    <child link="link2"/>
+  <joint name="Shoulder" type="revolute">
+    <parent link="Body"/>
+    <child link="UpperArm"/>
     <origin xyz="0 0 0.085" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit lower="-2.09" upper="0.52" effort="100" velocity="1.0"/>
   </joint>
 
   <!-- Third Link -->
-  <link name="link3">
+  <link name="Forearm">
     <visual>
       <geometry>
         <box size="0.17 0.02 0.02"/>
@@ -110,16 +110,16 @@
   </link>
 
   <!-- Third Joint (Pitch) -->
-  <joint name="link2_to_link3" type="revolute">
-    <parent link="link2"/>
-    <child link="link3"/>
+  <joint name="Elbow" type="revolute">
+    <parent link="UpperArm"/>
+    <child link="Forearm"/>
     <origin xyz="0.16 0 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit lower="0.087" upper="3.14" effort="100" velocity="1.0"/>
   </joint>
 
   <!-- End Effector Link -->
-  <link name="end_effector">
+  <link name="End Effector">
     <visual>
       <geometry>
         <box size="0.05 0.01 0.01"/>
@@ -141,9 +141,9 @@
   </link>
 
   <!-- End Effector Joint (Pitch) -->
-  <joint name="link3_to_end_effector" type="revolute">
-    <parent link="link3"/>
-    <child link="end_effector"/>
+  <joint name="Wrist" type="revolute">
+    <parent link="Forearm"/>
+    <child link="End Effector"/>
     <origin xyz="0.17 0 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit lower="-1.57" upper="1.57" effort="100" velocity="1.0"/>

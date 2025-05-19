@@ -76,19 +76,19 @@ def main():
                      rospy.Time.now(), 'World', "Base")
 
         initial_offset = math.radians(-45)
-        br_extension.sendTransform((0.75, 0, -0.5),
+        br_extension.sendTransform((0.75/100, 0, -0.5/100),
                      tf.transformations.quaternion_from_euler(0, initial_offset, 0),
                      rospy.Time.now(), 'Base', "Shoulder")
-        br_extension2.sendTransform((5, 0, 0),
+        br_extension2.sendTransform((16.0/100, 0, 0),
                      tf.transformations.quaternion_from_euler(0, math.radians(60) - extension_control_angle, 0),
                      rospy.Time.now(), 'Shoulder', "Elbow")
 
         initial_offset = math.radians(90)
-        br_wrist.sendTransform((5, 0, 0),
+        br_wrist.sendTransform((17.0/100, 0, 0),
                      tf.transformations.quaternion_from_euler(0, wrist_control_angle - 3.14, 0),
                      rospy.Time.now(), 'Elbow', "Wrist")
         initial_offset = math.radians(-120)
-        br_endeffector.sendTransform((0.5, 0, 0),
+        br_endeffector.sendTransform((5.0/100, 0, 0),
                      tf.transformations.quaternion_from_euler(0, 3.14/2 - wrist_control_angle, 0), rospy.Time.now(), 'Wrist', "End Effector")
 
     # Cleanup

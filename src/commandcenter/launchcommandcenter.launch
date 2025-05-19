@@ -1,3 +1,6 @@
 <launch>
     <node pkg="commandcenter" name="commandcenter" type="GUI.py" output="screen"></node>
+    <arg name="model" default="$(find lite_arm_2)/robot_arm.urdf"/>
+    <arg name="gui" default="true" />
+    <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
 </launch>
