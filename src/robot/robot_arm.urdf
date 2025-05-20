@@ -57,7 +57,7 @@
   </joint>
 
   <!-- Second Link -->
-  <link name="UpperArm">
+  <link name="Upper Arm">
     <visual>
       <geometry>
         <box size="0.16 0.02 0.02"/>
@@ -81,14 +81,14 @@
   <!-- Second Joint (Pitch) -->
   <joint name="Shoulder" type="revolute">
     <parent link="Body"/>
-    <child link="UpperArm"/>
+    <child link="Upper Arm"/>
     <origin xyz="0 0 0.085" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit lower="-2.09" upper="0.52" effort="100" velocity="1.0"/>
   </joint>
 
   <!-- Third Link -->
-  <link name="Forearm">
+  <link name="Fore Arm">
     <visual>
       <geometry>
         <box size="0.17 0.02 0.02"/>
@@ -111,8 +111,8 @@
 
   <!-- Third Joint (Pitch) -->
   <joint name="Elbow" type="revolute">
-    <parent link="UpperArm"/>
-    <child link="Forearm"/>
+    <parent link="Upper Arm"/>
+    <child link="Fore Arm"/>
     <origin xyz="0.16 0 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <limit lower="0.087" upper="3.14" effort="100" velocity="1.0"/>
@@ -142,7 +142,7 @@
 
   <!-- End Effector Joint (Pitch) -->
   <joint name="Wrist" type="revolute">
-    <parent link="Forearm"/>
+    <parent link="Fore Arm"/>
     <child link="End Effector"/>
     <origin xyz="0.17 0 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
