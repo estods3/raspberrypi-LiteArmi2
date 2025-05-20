@@ -94,7 +94,7 @@ def main():
 
         # Joint: Shoulder (Pitch)
         br_shoulder.sendTransform((0, 0, -8.5/100),
-                     tf.transformations.quaternion_from_euler(0, math.radians(60) - shoulder_control_angle, 0),
+                     tf.transformations.quaternion_from_euler(0, math.radians(70) - shoulder_control_angle, 0),
                      rospy.Time.now(), 'Body', "Shoulder")
 
         # Link: Upper Arm
