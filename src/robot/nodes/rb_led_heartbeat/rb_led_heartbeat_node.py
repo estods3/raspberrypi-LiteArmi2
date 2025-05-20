@@ -69,8 +69,8 @@ def main():
         global extCurrentAngle
         rotator_control_angle = math.radians(baseCurrentAngle)
         shoulder_control_angle = math.radians(extCurrentAngle)
-        elbow_control_angle = math.radians(wristCurrentAngle)
-        wrist_control_angle = 3.14/2 - elbow_control_angle
+        elbow_control_angle = math.radians(wristCurrentAngle) - 2.72
+        wrist_control_angle = -1*(elbow_control_angle + (math.radians(17)-shoulder_control_angle))
 
         # Fixed Frame to World Definition
         br_world.sendTransform((0, 0, 0),
@@ -78,7 +78,7 @@ def main():
                      rospy.Time.now(), 'Fixed Frame', "World")
 
         # Link: Base (Fixed to World)
-        br_base.sendTransform((0, 0, -1/100),
+        br_base.sendTransform((0, 0, -1.0/100),
                      tf.transformations.quaternion_from_euler(0, 0, 0),
                      rospy.Time.now(), 'World', "Base")
 
@@ -93,18 +93,20 @@ def main():
                      rospy.Time.now(), 'Rotator', "Body")
 
         # Joint: Shoulder (Pitch)
+        # Shoulder Joint Motor is mounted at 37deg
+        shoulder_joint_mounting_angle = math.radians(17)
         br_shoulder.sendTransform((0, 0, -8.5/100),
-                     tf.transformations.quaternion_from_euler(0, math.radians(70) - shoulder_control_angle, 0),
+                     tf.transformations.quaternion_from_euler(0, 0, 0),
                      rospy.Time.now(), 'Body', "Shoulder")
 
         # Link: Upper Arm
         br_upperarm.sendTransform((16.0/100, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, 0, 0),
+                     tf.transformations.quaternion_from_euler(0, shoulder_joint_mounting_angle - shoulder_control_angle, 0),
                      rospy.Time.now(), 'Shoulder', "Upper Arm")
 
         # Joint: Elbow
         br_elbow.sendTransform((0, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, elbow_control_angle - 3.14, 0),
+                     tf.transformations.quaternion_from_euler(0, elbow_control_angle, 0),
                      rospy.Time.now(), 'Upper Arm', "Elbow")
 
         # Link: Fore Arm
