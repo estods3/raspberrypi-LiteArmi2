@@ -113,7 +113,9 @@ This Robotic Arm uses Robotic Operating System (ROS) to transmit commands to the
 
 #### URDF Model
 A URDF file was constructed to visualize the geometry of the robot and create a simulated view for data replay and live visualization.
+<p align="center">
 <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/robotarm_urdf.png" title="URDF" alt="drawing" width="300"/>
+</p>
 
 #### Data Visualization Interface
 RQT with an RVIZ plugin can be used for data replay and live visualization. The runCC.sh script is configured to launch the RQT interface below with the perspective loaded.
