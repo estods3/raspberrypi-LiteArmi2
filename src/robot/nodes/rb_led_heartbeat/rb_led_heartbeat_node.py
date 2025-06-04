@@ -52,7 +52,9 @@ def main():
     rate = rospy.Rate(5) # 5hz
 
     while not rospy.is_shutdown():
+        
         # Update LED
+        # ----------
         heartbeat_msg = status
         if(status):
             GPIO.output(led_pin,GPIO.HIGH)
@@ -64,6 +66,7 @@ def main():
         rate.sleep()
 
         # Update TF Tree
+        # --------------
         global wristCurrentAngle
         global baseCurrentAngle
         global extCurrentAngle
@@ -73,31 +76,21 @@ def main():
         wrist_control_angle = -1*(elbow_control_angle + (math.radians(17)-shoulder_control_angle))
 
         # Fixed Frame to World Definition
-        br_world.sendTransform((0, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, 0, 0),
-                     rospy.Time.now(), 'Fixed Frame', "World")
+        br_world.sendTransform((0, 0, 0), tf.transformations.quaternion_from_euler(0, 0, 0), rospy.Time.now(), 'Fixed Frame', "World")
 
         # Link: Base (Fixed to World)
-        br_base.sendTransform((0, 0, -1.0/100),
-                     tf.transformations.quaternion_from_euler(0, 0, 0),
-                     rospy.Time.now(), 'World', "Base")
+        br_base.sendTransform((0, 0, -1.0/100), tf.transformations.quaternion_from_euler(0, 0, 0), rospy.Time.now(), 'World', "Base")
 
         # Joint: Rotator (Yaw)
-        br_rotator.sendTransform((0, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, 0, rotator_control_angle),
-                     rospy.Time.now(), 'Base', "Rotator")
+        br_rotator.sendTransform((0, 0, 0), tf.transformations.quaternion_from_euler(0, 0, rotator_control_angle), rospy.Time.now(), 'Base', "Rotator")
 
         # Link: Body
-        br_body.sendTransform((0, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, 0, 0),
-                     rospy.Time.now(), 'Rotator', "Body")
+        br_body.sendTransform((0, 0, 0), tf.transformations.quaternion_from_euler(0, 0, 0), rospy.Time.now(), 'Rotator', "Body")
 
         # Joint: Shoulder (Pitch)
         # Shoulder Joint Motor is mounted at 37deg
-        shoulder_joint_mounting_angle = math.radians(17)
-        br_shoulder.sendTransform((0, 0, -8.5/100),
-                     tf.transformations.quaternion_from_euler(0, 0, 0),
-                     rospy.Time.now(), 'Body', "Shoulder")
+        shoulder_joint_mounting_angle = math.radians(17)  #TODO - 17 works better than 37, but 37 is correct angle
+        br_shoulder.sendTransform((0, 0, -8.5/100), tf.transformations.quaternion_from_euler(0, 0, 0), rospy.Time.now(), 'Body', "Shoulder")
 
         # Link: Upper Arm
         br_upperarm.sendTransform((16.0/100, 0, 0),
@@ -105,23 +98,16 @@ def main():
                      rospy.Time.now(), 'Shoulder', "Upper Arm")
 
         # Joint: Elbow
-        br_elbow.sendTransform((0, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, elbow_control_angle, 0),
-                     rospy.Time.now(), 'Upper Arm', "Elbow")
+        br_elbow.sendTransform((0, 0, 0), tf.transformations.quaternion_from_euler(0, elbow_control_angle, 0), rospy.Time.now(), 'Upper Arm', "Elbow")
 
         # Link: Fore Arm
-        br_forearm.sendTransform((17.0/100, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, 0, 0),
-                     rospy.Time.now(), 'Elbow', "Fore Arm")
+        br_forearm.sendTransform((17.0/100, 0, 0), tf.transformations.quaternion_from_euler(0, 0, 0), rospy.Time.now(), 'Elbow', "Fore Arm")
         
         # Joint: Wrist
-        br_wrist.sendTransform((0, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, wrist_control_angle, 0),
-                     rospy.Time.now(), "Fore Arm", "Wrist")
+        br_wrist.sendTransform((0, 0, 0), tf.transformations.quaternion_from_euler(0, wrist_control_angle, 0), rospy.Time.now(), "Fore Arm", "Wrist")
 
         # Link: End Effector
-        br_endeffector.sendTransform((5.0/100, 0, 0),
-                     tf.transformations.quaternion_from_euler(0, 0, 0), rospy.Time.now(), 'Wrist', "End Effector")
+        br_endeffector.sendTransform((5.0/100, 0, 0), tf.transformations.quaternion_from_euler(0, 0, 0), rospy.Time.now(), 'Wrist', "End Effector")
 
     # Cleanup
     # -------

@@ -125,7 +125,7 @@
         <box size="0.05 0.01 0.01"/>
       </geometry>
       <origin xyz="0.025 0 0" rpy="0 0 0"/>
-      <material name="blue"/>
+      <material name="grey"/>
     </visual>
     <collision>
       <geometry>
