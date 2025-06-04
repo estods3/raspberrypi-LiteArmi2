@@ -133,11 +133,16 @@ Clone this repo on both the robot and host PC in a catkin workspace. run catkin_
 
 Make sure devel/setup.bash is sourced in your terminals. This is typically done by adding this to your ~/.bashrc.
 
+Configure ROS IPs and ROS MASTER URI on the Host PC and Raspberry Pi. The ROS MASTER URI should be set to the Host PC. For help, see [this tutorial](https://wiki.ros.org/ROS/Tutorials/MultipleMachines).
+
 #### Execution
 You will need 4 terminals open: 1) roscore, 2) SSH to robot + ./runRobot.sh, 3) ./runCC.sh 4) RQT
 
 ##### Terminal 1
-``` roscore ```
+```
+roscore 
+```
+This project is setup such that the robot will attempt to connect to a rosserver running on the host PC. This can take some debugging. For help, see [this tutorial](https://wiki.ros.org/ROS/Tutorials/MultipleMachines).
 
 ##### Terminal 2
 ```
@@ -145,16 +150,17 @@ ssh user@raspberrypi
 cd path/to/this/repo
 ./runRobot.sh
 ```
+This command will launch the robot software on the target hardware (raspberry pi). Note: this command may require root (sudo) privileges.
 ##### Terminal 3
 ```
 cd path/to/this/repo
 ./runCC.sh
 ```
-
+This command will launch the Command Center Interface on the Host PC.
 ##### Terminal 4
 ```
 rqt --perspective-file RobotArmRQT.perspective
 ```
-
+This command will launch a live visualization view to see ROS signals and a visualization of the robot in real time.
 ### Resources
 https://github.com/AliShug/EvoArm
