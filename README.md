@@ -93,7 +93,7 @@ NOTE: Position decoupling capacitors as close to 5V GPIO pins as possible.
 ## Software
 The software for this robot was written in python for both the PC "command center" and the robot itself. All code is included in this single repository.
 
-#### GPIO Pin Assignment
+### GPIO Pin Assignment
 The following pin assignment was used for each servo (ensure the appropriate servo is connected to the right location on the 11x1 Male Header Connector.
 
 <div align="center">
@@ -110,6 +110,13 @@ The following pin assignment was used for each servo (ensure the appropriate ser
 
 ### ROS
 This Robotic Arm uses Robotic Operating System (ROS) to transmit commands to the robot and also recieve live feedback on robot status and position.
+
+#### URDF Model
+A URDF file was constructed to visualize the geometry of the robot and create a simulated view for data replay and live visualization.
+<img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/robotarm_urdf.png" title="URDF" alt="drawing" width="300"/>
+
+#### Data Visualization Interface
+RQT with an RVIZ plugin can be used for data replay and live visualization. The runCC.sh script is configured to launch the RQT interface below with the perspective loaded.
 <p align="center">
  <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/rviz_interface.png" alt="video" width="800"/>
 </p>
