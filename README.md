@@ -123,5 +123,38 @@ RQT with an RVIZ plugin can be used for data replay and live visualization. The 
  <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/rviz_interface.png" alt="video" width="800"/>
 </p>
 
+### Running the Robot
+To run this robot, you will need 4 terminals open on your PC. You will also need to connect your robot to power (5V) and ethernet to your PC.
+
+#### Setup
+Configure network settings on your PC so that you can communicate with your robot. You should be able to ping the IP address of your robot from your PC as well as SSH. Once SSH is open, you should be able to ping your PC from your robot SSH terminal.
+
+Clone this repo on both the robot and host PC in a catkin workspace. run catkin_build to make this project on both the robot and PC.
+
+Make sure devel/setup.bash is sourced in your terminals. This is typically done by adding this to your ~/.bashrc.
+
+#### Execution
+You will need 4 terminals open: 1) roscore, 2) SSH to robot + ./runRobot.sh, 3) ./runCC.sh 4) RQT
+
+##### Terminal 1
+``` roscore ```
+
+##### Terminal 2
+```
+ssh user@raspberrypi
+cd path/to/this/repo
+./runRobot.sh
+```
+##### Terminal 3
+```
+cd path/to/this/repo
+./runCC.sh
+```
+
+##### Terminal 4
+```
+rqt --perspective-file RobotArmRQT.perspective
+```
+
 ### Resources
 https://github.com/AliShug/EvoArm
