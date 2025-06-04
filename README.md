@@ -93,7 +93,7 @@ NOTE: Position decoupling capacitors as close to 5V GPIO pins as possible.
 ## Software
 The software for this robot was written in python for both the PC "command center" and the robot itself. All code is included in this single repository.
 
-#### GPIO Pin Assignment
+### GPIO Pin Assignment
 The following pin assignment was used for each servo (ensure the appropriate servo is connected to the right location on the 11x1 Male Header Connector.
 
 <div align="center">
@@ -110,9 +110,57 @@ The following pin assignment was used for each servo (ensure the appropriate ser
 
 ### ROS
 This Robotic Arm uses Robotic Operating System (ROS) to transmit commands to the robot and also recieve live feedback on robot status and position.
+
+#### URDF Model
+A URDF file was constructed to visualize the geometry of the robot and create a simulated view for data replay and live visualization.
+<p align="center">
+<img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/robotarm_urdf.png" title="URDF" alt="drawing" width="300"/>
+</p>
+
+#### Data Visualization Interface
+RQT with an RVIZ plugin can be used for data replay and live visualization. The runCC.sh script is configured to launch the RQT interface below with the perspective loaded.
 <p align="center">
  <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/rviz_interface.png" alt="video" width="800"/>
 </p>
 
+### Running the Robot
+To run this robot, you will need 4 terminals open on your PC. You will also need to connect your robot to power (5V) and ethernet to your PC.
+
+#### Setup
+Configure network settings on your PC so that you can communicate with your robot. You should be able to ping the IP address of your robot from your PC as well as SSH. Once SSH is open, you should be able to ping your PC from your robot SSH terminal.
+
+Clone this repo on both the robot and host PC in a catkin workspace. run catkin_build to make this project on both the robot and PC.
+
+Make sure devel/setup.bash is sourced in your terminals. This is typically done by adding this to your ~/.bashrc.
+
+Configure ROS IPs and ROS MASTER URI on the Host PC and Raspberry Pi. The ROS MASTER URI should be set to the Host PC. For help, see [this tutorial](https://wiki.ros.org/ROS/Tutorials/MultipleMachines).
+
+#### Execution
+You will need 4 terminals open: 1) roscore, 2) SSH to robot + ./runRobot.sh, 3) ./runCC.sh 4) RQT
+
+##### Terminal 1
+```
+roscore 
+```
+This project is setup such that the robot will attempt to connect to a rosserver running on the host PC. This can take some debugging. For help, see [this tutorial](https://wiki.ros.org/ROS/Tutorials/MultipleMachines).
+
+##### Terminal 2
+```
+ssh user@raspberrypi
+cd path/to/this/repo
+./runRobot.sh
+```
+This command will launch the robot software on the target hardware (raspberry pi). Note: this command may require root (sudo) privileges.
+##### Terminal 3
+```
+cd path/to/this/repo
+./runCC.sh
+```
+This command will launch the Command Center Interface on the Host PC.
+##### Terminal 4
+```
+rqt --perspective-file RobotArmRQT.perspective
+```
+This command will launch a live visualization view to see ROS signals and a visualization of the robot in real time.
 ### Resources
 https://github.com/AliShug/EvoArm
