@@ -9,6 +9,20 @@
 The hardware for this robot consists of a 3D printed frame as well as a RaspberryPi with a custom "hat".
 The link to the frame design as well as details on the circuitry and bill of materials are below.
 
+|  | Robotic Arm |
+|:------------------:|:-----------:|
+| | <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/rosreplay.gif" title="3D Printed Robotic Arm" alt="video" width="94"/> |
+| | <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/robotarm_urdf.png" title="URDF" alt="drawing" width="275"/> |
+| | <img src="https://github.com/estods3/raspberrypi-LiteArmi2/blob/master/docs/rvizreplay.gif" title="3D Printed Robotic Arm" alt="video" width="275"/> |
+| Description | 3D Printed LiteArmi2, Geometry: 3R Serial Open-Chain with Rotating Base	|
+| Hardware | Custom PCB<br>Raspberry Pi Hat<br>Servo Motors<br>Heartbeat LED |
+| Power | 5V Operating Voltage<br>DC Power Supply |
+| Connectivity | Ethernet |
+| Compute |	Raspberry Pi |
+| SW Features | ROS<br>Remote Control<br>Heartbeat<br>LED Signal |
+| Algorithms | Forward Kinematics<br>Trapezoid Control |
+| Future Upgrades | End Effector Design |
+
 ### Frame
 Based on Open Sourced [LiteArm i2](https://www.thingiverse.com/thing:480446) Design. 3D printed.
 
